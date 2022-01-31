@@ -1,4 +1,4 @@
-from types import Parameters
+from custom_types import Parameters
 
 
 def __main__(argv):
