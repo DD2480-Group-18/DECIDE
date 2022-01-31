@@ -11,7 +11,6 @@ def createPUM(params: Parameters) -> List[List[bool]]:
     pum = [[None for i in range(MATRIX_DIMENSION)]
            for j in range(MATRIX_DIMENSION)]
     for i in range(0, MATRIX_DIMENSION):
-        assert(len(params.LCM[i]) == MATRIX_DIMENSION)
         for j in range(0, MATRIX_DIMENSION):
             operator = params.LCM[i][j]
             if operator == BooleanOperator.AND.value:
