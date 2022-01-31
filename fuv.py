@@ -8,6 +8,11 @@ def create_fuv(puv: List[bool], pum: List[List[bool]]):
 
 class FUVTest(unittest.TestCase):
     def test_all_true(self):
+        """ Test that FUV is fully activated when PUV is fully activated
+            and PUM is fully activated on every row. 
+
+            Should return an array with only True values.    
+        """
         puv = [True,
                True,
                True]
@@ -18,6 +23,11 @@ class FUVTest(unittest.TestCase):
         assert all(fuv)
 
     def test_all_false(self):
+        """ Test that FUV is fully activated when PUV is fully activated, 
+            despite fully deactivated PUM on every row. 
+
+            Should return an array with only True values.
+        """
         puv = [False,
                False,
                False]
@@ -28,6 +38,11 @@ class FUVTest(unittest.TestCase):
         assert all(fuv)
 
     def test_mixed(self):
+        """ Test that indexes of FUV which either has a corresponding 
+            deactivated PUV or a corresponding fully activated PUM row.
+
+            Should return an array with correct True, False values.
+        """
         puv = [False,
                True,
                True]
