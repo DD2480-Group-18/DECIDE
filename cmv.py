@@ -7,13 +7,13 @@ from helpers import get_angle, get_area
 
 
 def createCVM(params: Parameters) -> List[bool]:
-    CVM: List[bool] = []
+    cvm: List[bool] = []
     if condition0(params):
-        CVM[0] = True
+        cvm[0] = True
     if condition1(params):
-        CVM[1] = True
+        cvm[1] = True
     if condition2(params):
-        CVM[2] = True
+        cvm[2] = True
 
 def condition0(params):
     return 0 <= params.LENGTH1

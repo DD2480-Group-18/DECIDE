@@ -1,10 +1,10 @@
 from types import Parameters
 
-from cvm import createCVM
+from cmv import createCMV
 
 
 def __main__(argv):
     # Do the thing
     params = Parameters()
-    CVM = createCVM(params)
+    CMV = createCMV(params)
     return None
