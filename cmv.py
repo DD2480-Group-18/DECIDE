@@ -7,40 +7,7 @@ from helpers import get_angle, get_area, line_two_points, dist_point_line, dist_
 
 
 def create_cmv(params: Parameters) -> List[bool]:
-    cmv = [False] * 15
-    if condition0(params):
-        cmv[0] = True
-    if condition1(params):
-        cmv[1] = True
-    if condition2(params):
-        cmv[2] = True
-
-    if condition3(params):
-        cmv[3] = True
-    if condition4(params):
-        cmv[4] = True
-    if condition5():
-        cmv[5] = True
-    if condition6(params):
-        cmv[6] = True
-    if condition7(params):
-        cmv[7] = True
-    if condition8(params):
-        cmv[8] = True
-    if condition9(params):
-        cmv[9] = True
-    if condition10(params):
-        cmv[10] = True
-    if condition11(params):
-        cmv[11] = True
-    if condition12(params):
-        cmv[12] = True
-    if condition13(params):
-        cmv[13] = True
-    if condition14(params):
-        cmv[14] = True
-
-    return cmv
+    return [condition0(params), condition1(params), condition2(params), condition3(params), condition4(params), condition5(params), condition6(params), condition7(params), condition8(params), condition9(params), condition10(params), condition11(params), condition12(params), condition13(params), condition14(params)]
 
 
 def condition0(params):
