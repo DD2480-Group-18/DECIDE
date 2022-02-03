@@ -23,10 +23,11 @@ def condition1(params: Parameters):
 def condition2(params: Parameters):
     if 0 > params.EPSILON or params.EPSILON >= PI:
         return False
-    for i in range(0, NUMPOINTS - 3):
+    for i in range(0, NUMPOINTS - 2):
         # Create slice
         yslice = Y[i:i + 3]
         xslice = X[i:i + 3]
+
         # Create a, b vectors
         ax = xslice[0] - xslice[1]
         ay = yslice[0] - yslice[1]
@@ -39,7 +40,7 @@ def condition2(params: Parameters):
 
 
 def condition3(params: Parameters):
-    for i in range(0, NUMPOINTS - 3):
+    for i in range(0, NUMPOINTS - 2):
         # Create slice
         yslice = Y[i:i + 3]
         xslice = X[i:i + 3]
@@ -49,27 +50,32 @@ def condition3(params: Parameters):
         bx = xslice[2] - xslice[1]
         by = yslice[2] - yslice[1]
         area = get_area(ax, ay, bx, by) / 2
-        if 0 <= area <= params.AREA1:
+        if 0 <= params.AREA1 < area:
             return True
     return False
 
 
 def condition4(params: Parameters):
-    in_quads = 0
-    if params.Q_PTS >= params.QUADS:
-        for i in range(NUMPOINTS):
-            if X[i] >= 0 and Y[0] >= 0:
-                in_quads += 1
-            elif X[i] <= 0 and Y[0] >= 0:
-                in_quads += 1
-            elif X[i] <= 0 and Y[0] <= 0:
-                in_quads += 1
-            elif X[i] >= 0 and Y[0] <= 0:
-                in_quads += 1
-            else:
-                in_quads = 0
-            if in_quads > params.QUADS:
-                return True
+    if params.Q_PTS < 2 or params.Q_PTS > NUMPOINTS or params.QUADS < 1 or params.QUADS > 3:
+        return False
+
+    for i in range(0, NUMPOINTS - params.Q_PTS + 1):
+        consecutives = list(range(i, i + params.Q_PTS))
+        q_1 = 0
+        q_2 = 0
+        q_3 = 0
+        q_4 = 0
+        for idx in consecutives:
+            if X[idx] >= 0 and Y[idx] >= 0:
+                q_1 = 1
+            elif X[idx] <= 0 and Y[idx] >= 0:
+                q_2 = 1
+            elif X[idx] <= 0 and Y[idx] <= 0:
+                q_3 = 1
+            elif X[idx] >= 0 and Y[idx] <= 0:
+                q_4 = 1
+        if sum([q_1, q_2, q_3, q_4]) > params.QUADS:
+            return True
     return False
 
 
@@ -98,7 +104,7 @@ def condition6(params: Parameters):
 def condition7(params: Parameters):
     if NUMPOINTS < 3 or params.K_PTS > NUMPOINTS - 2:
         return False
-    for i in range(0, NUMPOINTS - params.K_PTS - 1):
+    for i in range(0, NUMPOINTS - params.K_PTS + 1):
         j = i + 1 + params.K_PTS
         if dist_two_points(X[i], Y[i], X[j], Y[j]) > params.LENGTH1:
             return True
@@ -109,7 +115,7 @@ def condition8(params: Parameters):
     if NUMPOINTS < 5 or params.A_PTS + params.B_PTS > NUMPOINTS - 3 or params.A_PTS < 1 or params.B_PTS < 1:
         return False
     DIAMETER1 = params.RADIUS1 * 2
-    for i in range(0, NUMPOINTS - params.A_PTS - params.B_PTS - 2):
+    for i in range(0, NUMPOINTS - params.A_PTS - params.B_PTS + 2):
         # A = a-b, B = b-c, C = d-a
 
         j = i + 1 + params.A_PTS
@@ -147,7 +153,7 @@ def condition9(params: Parameters):
     """
     if NUMPOINTS < 5 or params.C_PTS + params.D_PTS > NUMPOINTS - 3 or params.C_PTS < 1 or params.D_PTS < 1:
         return False
-    for i in range(0, NUMPOINTS - params.C_PTS - params.D_PTS - 2):
+    for i in range(0, NUMPOINTS - params.C_PTS - params.D_PTS + 2):
         j = i + 1 + params.C_PTS
         k = j + 1 + params.D_PTS
         # vertex coincides with one of the other points => condition not met
@@ -165,14 +171,14 @@ def condition9(params: Parameters):
 def condition10(params: Parameters):
     if NUMPOINTS < 5 or params.E_PTS + params.F_PTS > NUMPOINTS - 3 or params.E_PTS < 1 or params.F_PTS < 1:
         return False
-    for i in range(0, NUMPOINTS - params.E_PTS - params.F_PTS - 2):
+    for i in range(0, NUMPOINTS - params.E_PTS - params.F_PTS + 2):
         j = i + 1 + params.E_PTS
         k = j + 1 + params.F_PTS
         a_x = X[i] - X[j]
         b_x = X[k] - X[j]
         a_y = Y[i] - Y[j]
         b_y = Y[k] - Y[j]
-        if get_area(a_x, a_y, b_x, b_y) > params.AREA1:
+        if get_area(a_x, a_y, b_x, b_y) / 2 > params.AREA1:
             return True
     return False
 
@@ -180,7 +186,7 @@ def condition10(params: Parameters):
 def condition11(params: Parameters):
     if NUMPOINTS < 3 or NUMPOINTS - 2 < params.G_PTS or params.G_PTS < 1:
         return False
-    for i in range(0, NUMPOINTS - params.G_PTS - 1):
+    for i in range(0, NUMPOINTS - params.G_PTS + 1):
         if X[i + params.G_PTS + 1] - X[i] < 0:
             return True
     return False
@@ -191,7 +197,7 @@ def condition12(params: Parameters):
         return False
     greater_than_l1 = False
     less_than_l2 = False
-    for i in range(0, NUMPOINTS - params.K_PTS - 1):
+    for i in range(0, NUMPOINTS - params.K_PTS + 1):
         j = i + 1 + params.K_PTS
         d = dist_two_points(X[i], Y[i], X[j], Y[j])
         if d > params.LENGTH1:
@@ -209,7 +215,7 @@ def condition13(params: Parameters):
     DIAMETER2 = params.RADIUS2 * 2
     greater_than_r1 = False
     less_than_r2 = False
-    for i in range(0, NUMPOINTS - params.A_PTS - params.B_PTS - 2):
+    for i in range(0, NUMPOINTS - params.A_PTS - params.B_PTS + 2):
         j = i + 1 + params.A_PTS
         k = j + 1 + params.B_PTS
 
@@ -256,39 +262,155 @@ def condition14(params: Parameters):
         return False
     greater_than_a1 = False
     less_than_a2 = False
-    for i in range(0, NUMPOINTS - params.E_PTS - params.F_PTS - 2):
+    for i in range(0, NUMPOINTS - params.E_PTS - params.F_PTS + 2):
         j = i + 1 + params.E_PTS
         k = j + 1 + params.F_PTS
         a_x = X[i] - X[j]
         b_x = X[k] - X[j]
         a_y = Y[i] - Y[j]
         b_y = Y[k] - Y[j]
-        if get_area(a_x, a_y, b_x, b_y) > params.AREA1:
+        if get_area(a_x, a_y, b_x, b_y) / 2 > params.AREA1:
             greater_than_a1 = True
-        if get_area(a_x, a_y, b_x, b_y) < params.AREA2:
+        if get_area(a_x, a_y, b_x, b_y) / 2 < params.AREA2:
             less_than_a2 = True
     return greater_than_a1 and less_than_a2
 
 
 class LICTest(unittest.TestCase):
-    def setUp(self):
-        self.params = Parameters(
-            None, None, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-    def test_0(self):
-        assert condition0(self.params) == True
+    def test_0_positive(self):
+        """
+        Positive case to test if condition0 succeeds for the true case
+        """
+        params = Parameters(None, 1, 0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-    def test_1(self):
-        assert condition1(self.params) == True
+        self.assertTrue(condition0(params))
 
-    def test_2(self):
-        assert condition2(self.params) == True
+    def test_0_edge(self):
+        """
+        Edge case to test if condition0 succeeds for the edge case LENGTH1=0
+        """
+        params = Parameters(None, 0, 0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-    def test_3(self):
-        assert condition3(self.params) == True
+        self.assertTrue(condition0(params))
 
-    def test_4(self):
-        assert condition4(self.params) == True
+    def test_0_negative(self):
+        """
+        Negative case to test if condition0 succeeds for the false case
+        """
+        params = Parameters(None, -1, 0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+        self.assertFalse(condition0(params))
+
+    def test_1_positive(self):
+        """
+        Positive case to test if condition1 succeeds for the true case
+        """
+        params = Parameters(None, 0, 1, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+        self.assertTrue(condition1(params))
+
+    def test_1_edge(self):
+        """
+        Edge case to test if condition1 succeeds for the edge case RADIUS1=0
+        """
+        params = Parameters(None, 0, 0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+        self.assertTrue(condition1(params))
+
+    def test_1_negative(self):
+        """
+        Negative case to test if condition1 succeeds for the false case
+        """
+        params = Parameters(None, 0, -1, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+        self.assertFalse(condition1(params))
+
+    def test_2_positive(self):
+        """
+        Positive case to test if condition2 succeeds if the angle is within the specified bounds
+        """
+        global X
+        global Y
+        global NUMPOINTS
+
+        NUMPOINTS = 3
+        X = [0.2, 0.1, 0.3]
+        Y = [0.5, 0.55, 0.6]
+        params = Parameters(None, 0, 0, 0.25, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+        self.assertTrue(condition2(params))
+
+    def test_2_negative(self):
+        """
+        Negative case to test if condition2 returns false if the angle is outside of the specified bounds
+        """
+        global X
+        global Y
+        global NUMPOINTS
+
+        NUMPOINTS = 4
+        X = [0, 1, 2, 3]
+        Y = [0, 0, 2, 2]
+        params = Parameters(None, 0, 0, PI / 2, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+        self.assertFalse(condition2(params))
+
+    def test_3_positive(self):
+        global X
+        global Y
+        global NUMPOINTS
+
+        NUMPOINTS = 6
+        X = [0, 1, 2, 3, 4, 20]
+        Y = [0, 0, 2, 2, 5, 110]
+        params = Parameters(None, 0, 0, 0, 150, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        self.assertTrue(condition3(params))
+
+    def test_3_negative(self):
+        global X
+        global Y
+        global NUMPOINTS
+
+        NUMPOINTS = 6
+        X = [100, 1, 2, 3, 4, 20]
+        Y = [100, 5, 8, 2, 5, 110]
+        params = Parameters(None, 0, 0, 0, 250, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        self.assertFalse(condition3(params))
+
+    def test_4_positive(self):
+        global X
+        global Y
+        global NUMPOINTS
+
+        NUMPOINTS = 5
+        X = [100, 10, -1, -3, 4]
+        Y = [0, -10, 10, -29, 5]
+        params = Parameters(None, 0, 0, 0, 0, 4, 3, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        self.assertTrue(condition4(params))
+
+    def test_4_negative(self):
+        global X
+        global Y
+        global NUMPOINTS
+
+        NUMPOINTS = 5
+        X = [100, 1, 2, 3, 4]
+        Y = [100, 5, 8, 2, 5]
+        params = Parameters(None, 0, 0, 0, 0, 3, 1, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        self.assertFalse(condition4(params))
 
     def test_5(self):
         assert condition5(self.params) == True
