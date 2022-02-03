@@ -1,5 +1,5 @@
 from typing import List
-from custom_types import PI, Parameters, NUMPOINTS, X, Y
+from custom_types import PI, Parameters
 from math import atan, sqrt
 from helpers import *
 
@@ -20,7 +20,7 @@ def condition1(params: Parameters):
     return 0 <= params.RADIUS1
 
 
-def condition2(params: Parameters):
+def condition2(X, Y, NUMPOINTS, params: Parameters):
     if 0 > params.EPSILON or params.EPSILON >= PI:
         return False
     for i in range(0, NUMPOINTS - 2):
@@ -39,7 +39,7 @@ def condition2(params: Parameters):
     return False
 
 
-def condition3(params: Parameters):
+def condition3(X, Y, NUMPOINTS, params: Parameters):
     for i in range(0, NUMPOINTS - 2):
         # Create slice
         y_slice = Y[i:i + 3]
@@ -55,7 +55,7 @@ def condition3(params: Parameters):
     return False
 
 
-def condition4(params: Parameters):
+def condition4(X, Y, NUMPOINTS, params: Parameters):
     if params.Q_PTS < 2 or params.Q_PTS > NUMPOINTS or params.QUADS < 1 or params.QUADS > 3:
         return False
 
@@ -86,7 +86,7 @@ def condition5(X, NUMPOINTS):
     return False
 
 
-def condition6(params: Parameters):
+def condition6(X, Y, NUMPOINTS, params: Parameters):
     for i in range(NUMPOINTS - params.N_PTS):
         if X[i] == X[i + params.N_PTS - 1] and Y[i] == Y[i + params.N_PTS - 1]:
             for j in range(i + 1, i + params.N_PTS - 1):
@@ -101,17 +101,19 @@ def condition6(params: Parameters):
     return False
 
 
-def condition7(params: Parameters):
+def condition7(X, Y, NUMPOINTS, params: Parameters):
     if NUMPOINTS < 3 or params.K_PTS > NUMPOINTS - 2:
         return False
     for i in range(0, NUMPOINTS - params.K_PTS + 1):
         j = i + 1 + params.K_PTS
+        if j > i:
+            return False
         if dist_two_points(X[i], Y[i], X[j], Y[j]) > params.LENGTH1:
             return True
     return False
 
 
-def condition8(params: Parameters):
+def condition8(X, Y, NUMPOINTS, params: Parameters):
     if NUMPOINTS < 5 or params.A_PTS + params.B_PTS > NUMPOINTS - 3 or params.A_PTS < 1 or params.B_PTS < 1:
         return False
     diameter1 = params.RADIUS1 * 2
@@ -135,19 +137,19 @@ def condition8(params: Parameters):
         b_angle = get_angle(b_x, b_y, c_x, c_y)
         c_angle = get_angle(c_x, c_y, a_x, a_y)
 
-        if a_angle > PI/2 or b_angle > PI/2 or c_angle > PI/2:
+        if a_angle > PI / 2 or b_angle > PI / 2 or c_angle > PI / 2:
             if max(a_dist, b_dist, c_dist) < diameter1:
                 return True
         else:
-            s = (a_dist+b_dist+c_dist) / 2
-            r = (a_dist*b_dist*c_dist) / \
+            s = (a_dist + b_dist + c_dist) / 2
+            r = (a_dist * b_dist * c_dist) / \
                 (4 * sqrt(s * (s - a_dist) * (s - b_dist) * (s - c_dist)))
             if r > params.RADIUS1:
                 return True
     return False
 
 
-def condition9(params: Parameters):
+def condition9(X, Y, NUMPOINTS, params: Parameters):
     """
     Angle is in radians
     """
@@ -242,7 +244,7 @@ def condition13(X, Y, NUMPOINTS, A_PTS, B_PTS, RADIUS1, RADIUS2):
 
         # If triangle contains non-pointy angle, simply compare
         # the longest side with diameter
-        if a_angle > PI/2 or b_angle > PI/2 or c_angle > PI/2:
+        if a_angle > PI / 2 or b_angle > PI / 2 or c_angle > PI / 2:
             if max(a_dist, b_dist, c_dist) > diameter1:
                 greater_than_r1 = True
             if max(a_dist, b_dist, c_dist) < diameter2:
@@ -250,8 +252,8 @@ def condition13(X, Y, NUMPOINTS, A_PTS, B_PTS, RADIUS1, RADIUS2):
 
         # Use length of sides to determine radius of circumference circle
         else:
-            s = (a_dist+b_dist+c_dist) / 2
-            r = (a_dist*b_dist*c_dist) / \
+            s = (a_dist + b_dist + c_dist) / 2
+            r = (a_dist * b_dist * c_dist) / \
                 (4 * sqrt(s * (s - a_dist) * (s - b_dist) * (s - c_dist)))
             if r > RADIUS1:
                 greater_than_r1 = True
