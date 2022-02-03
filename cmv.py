@@ -412,8 +412,21 @@ class LICTest(unittest.TestCase):
                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
         self.assertFalse(condition4(params))
 
-    def test_5(self):
-        assert condition5(self.params) == True
+    def test_5_positive(self):
+        global NUMPOINTS
+        global X
+
+        NUMPOINTS = 5
+        X = [10, 9, 8, 7, 8]
+        self.assertTrue(condition5())
+
+    def test_5_negative(self):
+        global NUMPOINTS
+        global X
+
+        NUMPOINTS = 5
+        X = [10, 9, 8, 7, 6]
+        self.assertTrue(condition5())
 
     def test_6(self):
         assert condition6(self.params) == True
