@@ -13,10 +13,11 @@ class Parameters(NamedTuple):
     LCM: List[List[BooleanOperator]]
     LENGTH1: float
     RADIUS1: float
-    EPISILON: float
+    EPSILON: float
     AREA1: float
     Q_PTS: int
     QUADS: int
+    DIST: float
     N_PTS: int
     K_PTS: int
     A_PTS: int
