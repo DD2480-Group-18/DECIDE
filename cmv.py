@@ -208,10 +208,10 @@ def condition13(params: Parameters):
     greater_than_r1 = False
     less_than_r2 = False
     for i in range(0, NUMPOINTS - params.A_PTS - params.B_PTS - 2):
-        # A = a-b, B = b-c, C = d-a 
-
         j = i + 1 + params.A_PTS
         k = j + 1 + params.B_PTS
+
+        # Triangle vectors
         a_x = X[i] - X[j]
         b_x = X[k] - X[j]
         c_x = X[i] - X[k]
@@ -224,7 +224,8 @@ def condition13(params: Parameters):
         b_dist = dist(b_x, b_y)
         c_dist = dist(c_x, c_y)
 
-        # Get anglel of points
+        # Get angle of points
+        # A = a-b, B = b-c, C = d-a
         A_angle = get_angle(a_x, a_y, b_x, b_y)
         B_angle = get_angle(b_x, b_y, c_x, c_y)
         C_angle = get_angle(c_x, c_y, a_x, a_y)
