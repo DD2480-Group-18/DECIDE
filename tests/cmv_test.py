@@ -62,9 +62,6 @@ class CMVTest(unittest.TestCase):
         """
         Positive case to test if condition2 succeeds if the angle is within the specified bounds
         """
-        global X
-        global Y
-        global NUMPOINTS
 
         NUMPOINTS = 3
         X = [0.2, 0.1, 0.3]
@@ -72,7 +69,7 @@ class CMVTest(unittest.TestCase):
         params = Parameters(0, 0, 0.25, 0, 0, 0, 0, 0, 0,
                             0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-        self.assertTrue(condition2(params))
+        self.assertTrue(condition2(X,Y,NUMPOINTS, params))
 
     def test_2_negative(self):
         """
