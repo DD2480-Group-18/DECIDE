@@ -6,3 +6,4 @@ Y: List[float] = [0, 0, 0, 0, 0]
 X: List[float] = [0, 0, 0, 0, 0]
 
 PI: float = 3.14159265358979
+MATRIX_DIMENSION: int = 15

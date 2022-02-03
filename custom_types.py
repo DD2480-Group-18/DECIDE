@@ -1,8 +1,16 @@
+from enum import Enum
 from typing import List, NamedTuple
+
+
+class BooleanOperator(Enum):
+    AND = "ANDD"
+    OR = "ORR"
+    NOT_USED = "NOTUSED"
 
 
 class Parameters(NamedTuple):
     CMV: List[bool]
+    LCM: List[List[BooleanOperator]]
     LENGTH1: float
     RADIUS1: float
     EPSILON: float
