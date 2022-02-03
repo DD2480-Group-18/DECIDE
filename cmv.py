@@ -115,11 +115,11 @@ def condition8(params: Parameters):
     if NUMPOINTS < 5 or params.A_PTS + params.B_PTS > NUMPOINTS - 3 or params.A_PTS < 1 or params.B_PTS < 1:
         return False
     diameter1 = params.RADIUS1 * 2
-    for i in range(0, NUMPOINTS - params.A_PTS - params.B_PTS + 2):
+    for i in range(0, NUMPOINTS - params.A_PTS - params.B_PTS):
         # A = a-b, B = b-c, C = d-a
 
-        j = i + 1 + params.A_PTS
-        k = j + 1 + params.B_PTS
+        j = i + params.A_PTS
+        k = j + params.B_PTS
         a_x = X[i] - X[j]
         b_x = X[k] - X[j]
         c_x = X[i] - X[k]
@@ -153,9 +153,9 @@ def condition9(params: Parameters):
     """
     if NUMPOINTS < 5 or params.C_PTS + params.D_PTS > NUMPOINTS - 3 or params.C_PTS < 1 or params.D_PTS < 1:
         return False
-    for i in range(0, NUMPOINTS - params.C_PTS - params.D_PTS + 2):
-        j = i + 1 + params.C_PTS
-        k = j + 1 + params.D_PTS
+    for i in range(0, NUMPOINTS - params.C_PTS - params.D_PTS):
+        j = i + params.C_PTS
+        k = j + params.D_PTS
         # vertex coincides with one of the other points => condition not met
         if [X[j], Y[j]] == [X[i], Y[i]] or [X[j], Y[j]] == [X[k], Y[k]]:
             return False
@@ -168,41 +168,43 @@ def condition9(params: Parameters):
     return False
 
 
-def condition10(params: Parameters):
-    if NUMPOINTS < 5 or params.E_PTS + params.F_PTS > NUMPOINTS - 3 or params.E_PTS < 1 or params.F_PTS < 1:
+def condition10(X, Y, NUMPOINTS, E_PTS, F_PTS, AREA1):
+    if NUMPOINTS < 5 or E_PTS + F_PTS > NUMPOINTS - 3 or E_PTS < 1 or F_PTS < 1:
         return False
-    for i in range(0, NUMPOINTS - params.E_PTS - params.F_PTS + 2):
-        j = i + 1 + params.E_PTS
-        k = j + 1 + params.F_PTS
+    for i in range(0, NUMPOINTS - E_PTS - F_PTS - 2):
+        j = i + 1 + E_PTS
+        k = j + 1 + F_PTS
         a_x = X[i] - X[j]
         b_x = X[k] - X[j]
         a_y = Y[i] - Y[j]
         b_y = Y[k] - Y[j]
-        if get_area(a_x, a_y, b_x, b_y) / 2 > params.AREA1:
+        if get_area(a_x, a_y, b_x, b_y) / 2 > AREA1:
             return True
     return False
 
 
-def condition11(params: Parameters):
-    if NUMPOINTS < 3 or NUMPOINTS - 2 < params.G_PTS or params.G_PTS < 1:
+def condition11(X, NUMPOINTS, G_PTS):
+    if NUMPOINTS < 3 or NUMPOINTS - 2 < G_PTS or G_PTS < 1:
         return False
-    for i in range(0, NUMPOINTS - params.G_PTS + 1):
-        if X[i + params.G_PTS + 1] - X[i] < 0:
+    for i in range(0, NUMPOINTS - G_PTS - 1):
+        if X[i + G_PTS + 1] - X[i] < 0:
             return True
     return False
 
 
-def condition12(params: Parameters):
-    if NUMPOINTS < 3 or params.LENGTH2 < 0:
+def condition12(X, Y, NUMPOINTS, K_PTS, LENGTH1, LENGTH2):
+    if NUMPOINTS < 3 or LENGTH2 < 0:
         return False
     greater_than_l1 = False
     less_than_l2 = False
-    for i in range(0, NUMPOINTS - params.K_PTS + 1):
-        j = i + 1 + params.K_PTS
-        d = dist_two_points(X[i], Y[i], X[j], Y[j])
-        if d > params.LENGTH1:
+    for i in range(0, NUMPOINTS - K_PTS - 1):
+        j = i + 1 + K_PTS
+        a_x = X[j] - X[i]
+        a_y = Y[j] - Y[i]
+        d = dist(a_x, a_y)
+        if d > LENGTH1:
             greater_than_l1 = True
-        if d < params.LENGTH2:
+        if d < LENGTH2:
             less_than_l2 = True
 
     return greater_than_l1 and less_than_l2
@@ -215,7 +217,7 @@ def condition13(X, Y, NUMPOINTS, A_PTS, B_PTS, RADIUS1, RADIUS2):
     diameter2 = RADIUS2 * 2
     greater_than_r1 = False
     less_than_r2 = False
-    for i in range(0, NUMPOINTS - A_PTS - B_PTS + 2):
+    for i in range(0, NUMPOINTS - A_PTS - B_PTS - 2):
         j = i + 1 + A_PTS
         k = j + 1 + B_PTS
 
@@ -263,7 +265,7 @@ def condition14(X, Y, NUMPOINTS, E_PTS, F_PTS, AREA1, AREA2):
         return False
     greater_than_a1 = False
     less_than_a2 = False
-    for i in range(0, NUMPOINTS - E_PTS - F_PTS + 2):
+    for i in range(0, NUMPOINTS - E_PTS - F_PTS - 2):
         j = i + 1 + E_PTS
         k = j + 1 + F_PTS
         a_x = X[i] - X[j]
