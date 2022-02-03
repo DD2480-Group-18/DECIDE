@@ -11,13 +11,20 @@ def create_cmv(params: Parameters) -> List[bool]:
             condition3(X, Y, NUMPOINTS, params.AREA1),
             condition4(X, Y, NUMPOINTS, params.Q_PTS, params.QUADS),
             condition5(X, NUMPOINTS),
-            condition6(X, Y, NUMPOINTS, params.N_PTS, params.DIST),
+            condition6(X, Y, NUMPOINTS, params.K_PTS, params.LENGTH1),
             condition7(X, Y, NUMPOINTS, params.K_PTS, params.LENGTH1),
-            condition8(X, Y, NUMPOINTS, params.A_PTS, params.B_PTS, params.RADIUS1),
-            condition9(X, Y, NUMPOINTS, params.C_PTS, params.D_PTS, params.EPSILON),
-            condition10(X, Y, NUMPOINTS, params.E_PTS, params.F_PTS, params.AREA1),
-            condition11(params),
-            condition12(params), condition13(params), condition14(params)]
+            condition8(X, Y, NUMPOINTS, params.A_PTS,
+                       params.B_PTS, params.RADIUS1),
+            condition9(X, Y, NUMPOINTS, params.C_PTS,
+                       params.D_PTS, params.EPSILON),
+            condition10(X, Y, NUMPOINTS, params.E_PTS,
+                        params.F_PTS, params.AREA1),
+            condition11(X, Y, NUMPOINTS),
+            condition12(X, Y, NUMPOINTS, params.K_PTS,
+                        params.LENGTH1, params.LENGTH2),
+            condition13(X, Y, NUMPOINTS, params.A_PTS, params.B_PTS,
+                        params.RADIUS1, params.RADIUS2),
+            condition14(X, Y, NUMPOINTS, params.E_PTS, params.F_PTS, params.AREA1, params.AREA2)]
 
 
 def condition0(X, Y, NUMPOINTS, LENGTH1):
@@ -152,7 +159,7 @@ def condition8(X, Y, NUMPOINTS, A_PTS, B_PTS, RADIUS1):
         c_angle = get_angle(c_x, c_y, a_x, a_y)
 
         if a_angle > PI / 2 or b_angle > PI / 2 or c_angle > PI / 2:
-            if max(a_dist, b_dist, c_dist) < diameter1:
+            if max(a_dist, b_dist, c_dist) > diameter1:
                 return True
         else:
             s = (a_dist + b_dist + c_dist) / 2
@@ -164,9 +171,6 @@ def condition8(X, Y, NUMPOINTS, A_PTS, B_PTS, RADIUS1):
 
 
 def condition9(X, Y, NUMPOINTS, C_PTS, D_PTS, EPSILON):
-    """
-    Angle is in radians
-    """
     if NUMPOINTS < 5 or C_PTS + D_PTS > NUMPOINTS - 3 or C_PTS < 1 or D_PTS < 1:
         return False
     for i in range(0, NUMPOINTS - C_PTS - D_PTS - 2):

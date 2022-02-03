@@ -1,20 +1,8 @@
-import sys
-from threading import Thread
-from custom_types import MATRIX_DIMENSION
-from cmv import *
 import unittest
-
 from fuv import create_fuv
-from pum import createPUM
 
 
-class AllTest(unittest.TestCase):
-
-    def __init__(self, methodName: str = ...):
-        super().__init__(methodName)
-        self.params = Parameters(
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
+class FUVTest(unittest.TestCase):
     def test_fuv_all_true(self):
         """ Test that FUV is fully activated when PUV is fully activated
             and PUM is fully activated on every row.
