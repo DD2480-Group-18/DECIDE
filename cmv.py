@@ -151,7 +151,7 @@ def condition8(X, Y, NUMPOINTS, A_PTS, B_PTS, RADIUS1):
         c_angle = get_angle(c_x, c_y, a_x, a_y)
 
         if a_angle > PI / 2 or b_angle > PI / 2 or c_angle > PI / 2:
-            if max(a_dist, b_dist, c_dist) < diameter1:
+            if max(a_dist, b_dist, c_dist) > diameter1:
                 return True
         else:
             s = (a_dist + b_dist + c_dist) / 2
