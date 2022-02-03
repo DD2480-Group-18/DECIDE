@@ -9,54 +9,55 @@ class CMVTest(unittest.TestCase):
         """
         Positive case to test if condition0 succeeds for the true case
         """
-        params = Parameters(0, 0, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-        self.assertTrue(condition0(params))
+        NUMPOINTS = 6
+        X = [100, 1, 2, 3, 4, 20]
+        Y = [100, 5, 8, 2, 5, 110]
+        self.assertTrue(condition0(X, Y, NUMPOINTS, 1))
 
     def test_0_edge(self):
         """
         Edge case to test if condition0 succeeds for the edge case LENGTH1=0
         """
-        params = Parameters(0, 0, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-        self.assertTrue(condition0(params))
+        NUMPOINTS = 6
+        X = [0, 0, 0, 0, 0, 0]
+        Y = [0, 0, 0, 0, 0, 0]
+        self.assertTrue(condition0(X, Y,NUMPOINTS, 0))
 
     def test_0_negative(self):
         """
         Negative case to test if condition0 succeeds for the false case
         """
-        params = Parameters(-1, 0, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-        self.assertFalse(condition0(params))
+        NUMPOINTS = 6
+        X = [0, 0, 0, 0, 0, 0]
+        Y = [0, 0, 0, 0, 0, 0]
+        self.assertFalse(condition0(X, Y,NUMPOINTS, 10))
 
     def test_1_positive(self):
         """
         Positive case to test if condition1 succeeds for the true case
         """
-        params = Parameters(0, 1, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-        self.assertTrue(condition1(params))
+        NUMPOINTS = 6
+        X = [0, 5, 10, 15, 20, 30]
+        Y = [0, 5, 10, 15, 20, 30]
+        self.assertTrue(condition0(X, Y,NUMPOINTS, 1))
 
     def test_1_edge(self):
         """
         Edge case to test if condition1 succeeds for the edge case RADIUS1=0
         """
-        params = Parameters(0, 0, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-        self.assertTrue(condition1(params))
+        NUMPOINTS = 6
+        X = [0, 5, 10, 15, 20, 25]
+        Y = [5, 0, 10, 15, 20, 25]
+        self.assertTrue(condition0(X, Y,NUMPOINTS, 5))
 
     def test_1_negative(self):
         """
         Negative case to test if condition1 succeeds for the false case
         """
-        params = Parameters(0, -1, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-        self.assertFalse(condition1(params))
+        NUMPOINTS = 6
+        X = [0, 5, 10, 15, 20, 25]
+        Y = [5, 0, 10, 15, 20, 25]
+        self.assertFalse(condition0(X, Y,NUMPOINTS, 50))
 
     def test_2_positive(self):
         """
@@ -364,7 +365,7 @@ class CMVTest(unittest.TestCase):
         RADIUS1 = 1
         RADIUS2 = 3
         self.assertTrue(condition13(X, Y, NUMPOINTS,
-                        A_PTS, B_PTS, RADIUS1, RADIUS2))
+                                    A_PTS, B_PTS, RADIUS1, RADIUS2))
 
     def test_13_negative(self):
         """
