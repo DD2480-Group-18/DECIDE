@@ -104,21 +104,6 @@ def condition7(params: Parameters):
     return False
 
 
-# def condition8(params: Parameters):
-#     if NUMPOINTS < 5 or params.A_PTS + params.B_PTS > NUMPOINTS - 3 or params.A_PTS < 1 or params.B_PTS < 1:
-#         return False
-#     DIAMETER1 = params.RADIUS1 * 2
-#     for i in range(0, NUMPOINTS - params.A_PTS - params.B_PTS - 2):
-#         j = i + 1 + params.A_PTS
-#         k = j + 1 + params.B_PTS
-#         # TODO: this is not right!
-#         # check if any of the three points lies more than a diameter away from any of the other points
-#         if dist_two_points(X[i], Y[i], X[j], Y[j]) > DIAMETER1 or\
-#                 dist_two_points(X[i], Y[i], X[k], Y[k]) > DIAMETER1 or\
-#                 dist_two_points(X[j], Y[j], X[k], Y[k]) > DIAMETER1:
-#             return True
-#     return False
-
 def condition8(params: Parameters):
     if NUMPOINTS < 5 or params.A_PTS + params.B_PTS > NUMPOINTS - 3 or params.A_PTS < 1 or params.B_PTS < 1:
         return False
@@ -148,8 +133,8 @@ def condition8(params: Parameters):
                 return True
         else:
             s = (a_dist+b_dist+c_dist) / 2
-            r = (a_dist*b_dist*c_dist) / (4 * sqrt(s * (s - a) * (s - b) * (s - c)))
-            if (r < params.RADIUS1):
+            r = (a_dist*b_dist*c_dist) / (4 * sqrt(s * (s - a_dist) * (s - b_dist) * (s - c_dist)))
+            if (r > params.RADIUS1):
                 return True
     return False
 
@@ -216,7 +201,50 @@ def condition12(params: Parameters):
 
 
 def condition13(params: Parameters):
-    return False
+    if NUMPOINTS < 5 or params.A_PTS + params.B_PTS > NUMPOINTS - 3 or params.A_PTS < 1 or params.B_PTS < 1:
+        return False
+    DIAMETER1 = params.RADIUS1 * 2
+    DIAMETER2 = params.RADIUS2 * 2
+    greater_than_r1 = False
+    less_than_r2 = False
+    for i in range(0, NUMPOINTS - params.A_PTS - params.B_PTS - 2):
+        # A = a-b, B = b-c, C = d-a 
+
+        j = i + 1 + params.A_PTS
+        k = j + 1 + params.B_PTS
+        a_x = X[i] - X[j]
+        b_x = X[k] - X[j]
+        c_x = X[i] - X[k]
+        a_y = Y[i] - Y[j]
+        b_y = Y[k] - Y[j]
+        c_y = Y[i] - Y[k]
+
+        # Get length of edges
+        a_dist = dist(a_x, a_y)
+        b_dist = dist(b_x, b_y)
+        c_dist = dist(c_x, c_y)
+
+        # Get anglel of points
+        A_angle = get_angle(a_x, a_y, b_x, b_y)
+        B_angle = get_angle(b_x, b_y, c_x, c_y)
+        C_angle = get_angle(c_x, c_y, a_x, a_y)
+
+        # If triangle contains non-pointy angle, simply compare longest side with diameter
+        if A_angle > PI/2 or B_angle > PI/2 or C_angle > PI/2:
+            if max(a_dist, b_dist, c_dist) > DIAMETER1:
+                greater_than_r1 = True
+            if max(a_dist, b_dist, c_dist) < DIAMETER2:
+                less_than_r2 = True
+
+        # Use length of sides to determine radius of circumference circle
+        else:
+            s = (a_dist+b_dist+c_dist) / 2
+            r = (a_dist*b_dist*c_dist) / (4 * sqrt(s * (s - a_dist) * (s - b_dist) * (s - c_dist)))
+            if (r > params.RADIUS1):
+                greater_than_r1 = True
+            if (r > params.RADIUS2):
+                less_than_r2 = True
+    return greater_than_r1 and less_than_r2
 
 
 def condition14(params: Parameters):
