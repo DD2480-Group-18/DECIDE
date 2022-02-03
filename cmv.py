@@ -5,28 +5,43 @@ from helpers import *
 
 
 def create_cmv(params: Parameters) -> List[bool]:
-    return [condition0(params), condition1(params), condition2(params),
-            condition3(params), condition4(params), condition5(),
-            condition6(params), condition7(params), condition8(params),
-            condition9(params), condition10(params), condition11(params),
-            condition12(params), condition13(params), condition14(params)]
+    return [condition0(params.LENGTH1),
+            condition1(params.RADIUS1),
+            condition2(X, Y, NUMPOINTS, params.EPSILON),
+            condition3(X, Y, NUMPOINTS, params.AREA1),
+            condition4(X, Y, NUMPOINTS. params.Q_PTS, params.QUADS),
+            condition5(X, NUMPOINTS),
+            condition6(X, Y, NUMPOINTS, params.K_PTS, params.LENGTH1),
+            condition7(X, Y, NUMPOINTS, params.K_PTS, params.LENGTH1),
+            condition8(X, Y, NUMPOINTS, params.A_PTS,
+                       params.B_PTS, params.RADIUS1),
+            condition9(X, Y, NUMPOINTS, params.C_PTS,
+                       params.D_PTS, params.EPSILON),
+            condition10(X, Y, NUMPOINTS, params.E_PTS,
+                        params.F_PTS, params.AREA1),
+            condition11(X, Y, NUMPOINTS, G_PTS),
+            condition12(X, Y, NUMPOINTS, params.K_PTS,
+                        params.LENGTH1, params.LENGTH2),
+            condition13(X, Y, NUMPOINTS, params.A_PTS, params.B_PTS,
+                        params.RADIUS1, params.RADIUS2),
+            condition14(X, Y, NUMPOINTS, params.E_PTS, params.F_PTS, params.AREA1, params.AREA2)]
 
 
-def condition0(params: Parameters):
-    return 0 <= params.LENGTH1
+def condition0(LENGTH1):
+    return 0 <= LENGTH1
 
 
-def condition1(params: Parameters):
-    return 0 <= params.RADIUS1
+def condition1(RADIUS1):
+    return 0 <= RADIUS1
 
 
-def condition2(X, Y, NUMPOINTS, params: Parameters):
-    if 0 > params.EPSILON or params.EPSILON >= PI:
+def condition2(X, Y, NUMPOINTS, EPSILON):
+    if 0 > EPSILON or EPSILON >= PI:
         return False
     for i in range(0, NUMPOINTS - 2):
         # Create slice
-        y_slice = Y[i:i + 3]
-        x_slice = X[i:i + 3]
+        y_slice = Y[i:i+3]
+        x_slice = X[i:i+3]
 
         # Create a, b vectors
         ax = x_slice[0] - x_slice[1]
@@ -34,33 +49,33 @@ def condition2(X, Y, NUMPOINTS, params: Parameters):
         bx = x_slice[2] - x_slice[1]
         by = y_slice[2] - y_slice[1]
         angle = get_angle(ax, ay, bx, by)
-        if angle < (PI - params.EPSILON) or angle > (PI + params.EPSILON):
+        if angle < (PI - EPSILON) or angle > (PI + EPSILON):
             return True
     return False
 
 
-def condition3(X, Y, NUMPOINTS, params: Parameters):
+def condition3(X, Y, NUMPOINTS, AREA1):
     for i in range(0, NUMPOINTS - 2):
         # Create slice
-        y_slice = Y[i:i + 3]
-        x_slice = X[i:i + 3]
+        y_slice = Y[i:i+3]
+        x_slice = X[i:i+3]
         # Create a, b vectors
         ax = x_slice[0] - x_slice[1]
         ay = y_slice[0] - y_slice[1]
         bx = x_slice[2] - x_slice[1]
         by = y_slice[2] - y_slice[1]
         area = get_area(ax, ay, bx, by) / 2
-        if 0 <= params.AREA1 < area:
+        if 0 <= AREA1 < area:
             return True
     return False
 
 
-def condition4(X, Y, NUMPOINTS, params: Parameters):
-    if params.Q_PTS < 2 or params.Q_PTS > NUMPOINTS or params.QUADS < 1 or params.QUADS > 3:
+def condition4(X, Y, NUMPOINTS, Q_PTS, QUADS):
+    if Q_PTS < 2 or Q_PTS > NUMPOINTS or QUADS < 1 or QUADS > 3:
         return False
 
-    for i in range(0, NUMPOINTS - params.Q_PTS + 1):
-        consecutive = list(range(i, i + params.Q_PTS))
+    for i in range(0, NUMPOINTS - Q_PTS + 1):
+        consecutive = list(range(i, i + Q_PTS))
         q_1 = 0
         q_2 = 0
         q_3 = 0
@@ -74,7 +89,7 @@ def condition4(X, Y, NUMPOINTS, params: Parameters):
                 q_3 = 1
             elif X[idx] >= 0 >= Y[idx]:
                 q_4 = 1
-        if sum([q_1, q_2, q_3, q_4]) > params.QUADS:
+        if sum([q_1, q_2, q_3, q_4]) > QUADS:
             return True
     return False
 
@@ -86,40 +101,40 @@ def condition5(X, NUMPOINTS):
     return False
 
 
-def condition6(X, Y, NUMPOINTS, params: Parameters):
-    for i in range(NUMPOINTS - params.N_PTS):
-        if X[i] == X[i + params.N_PTS - 1] and Y[i] == Y[i + params.N_PTS - 1]:
-            for j in range(i + 1, i + params.N_PTS - 1):
-                if dist_two_points(X[j], Y[j], X[i], Y[i]) > params.DIST:
+def condition6(X, Y, NUMPOINTS, N_PTS, DIST):
+    for i in range(NUMPOINTS - N_PTS):
+        if X[i] == X[i + N_PTS - 1] and Y[i] == Y[i + N_PTS - 1]:
+            for j in range(i + 1, i + N_PTS - 1):
+                if dist_two_points(X[j], Y[j], X[i], Y[i]) > DIST:
                     return True
         else:
             line = line_two_points(
-                X[i], Y[i], X[i + params.N_PTS - 1], Y[i + params.N_PTS - 1])
-            for j in range(i + 1, i + params.N_PTS - 1):
-                if dist_point_line(line, X[j], Y[j]) > params.DIST:
+                X[i], Y[i], X[i + N_PTS - 1], Y[i + N_PTS - 1])
+            for j in range(i + 1, i + N_PTS - 1):
+                if dist_point_line(line, X[j], Y[j]) > DIST:
                     return True
     return False
 
 
-def condition7(X, Y, NUMPOINTS, params: Parameters):
-    if NUMPOINTS < 3 or params.K_PTS > NUMPOINTS - 2:
+def condition7(X, Y, NUMPOINTS, K_PTS, LENGTH1):
+    if NUMPOINTS < 3 or K_PTS > NUMPOINTS - 2:
         return False
-    for i in range(0, NUMPOINTS - params.K_PTS - 1):
-        j = i + 1 + params.K_PTS
-        if dist_two_points(X[i], Y[i], X[j], Y[j]) > params.LENGTH1:
+    for i in range(0, NUMPOINTS - K_PTS - 1):
+        j = i + 1 + K_PTS
+        if dist_two_points(X[i], Y[i], X[j], Y[j]) > LENGTH1:
             return True
     return False
 
 
-def condition8(X, Y, NUMPOINTS, params: Parameters):
-    if NUMPOINTS < 5 or params.A_PTS + params.B_PTS > NUMPOINTS - 3 or params.A_PTS < 1 or params.B_PTS < 1:
+def condition8(X, Y, NUMPOINTS, A_PTS, B_PTS, RADIUS1):
+    if NUMPOINTS < 5 or A_PTS + B_PTS > NUMPOINTS - 3 or A_PTS < 1 or B_PTS < 1:
         return False
-    diameter1 = params.RADIUS1 * 2
-    for i in range(0, NUMPOINTS - params.A_PTS - params.B_PTS - 2):
+    diameter1 = RADIUS1 * 2
+    for i in range(0, NUMPOINTS - A_PTS - B_PTS - 2):
         # A = a-b, B = b-c, C = d-a
 
-        j = i + 1 + params.A_PTS
-        k = j + 1 + params.B_PTS
+        j = i + 1 + A_PTS
+        k = j + 1 + B_PTS
         a_x = X[i] - X[j]
         b_x = X[k] - X[j]
         c_x = X[i] - X[k]
@@ -142,20 +157,17 @@ def condition8(X, Y, NUMPOINTS, params: Parameters):
             s = (a_dist + b_dist + c_dist) / 2
             r = (a_dist * b_dist * c_dist) / \
                 (4 * sqrt(s * (s - a_dist) * (s - b_dist) * (s - c_dist)))
-            if r > params.RADIUS1:
+            if r > RADIUS1:
                 return True
     return False
 
 
-def condition9(X, Y, NUMPOINTS, params: Parameters):
-    """
-    Angle is in radians
-    """
-    if NUMPOINTS < 5 or params.C_PTS + params.D_PTS > NUMPOINTS - 3 or params.C_PTS < 1 or params.D_PTS < 1:
+def condition9(X, Y, NUMPOINTS, C_PTS, D_PTS, EPSILON):
+    if NUMPOINTS < 5 or C_PTS + D_PTS > NUMPOINTS - 3 or C_PTS < 1 or D_PTS < 1:
         return False
-    for i in range(0, NUMPOINTS - params.C_PTS - params.D_PTS - 2):
-        j = i + 1 + params.C_PTS
-        k = j + 1 + params.D_PTS
+    for i in range(0, NUMPOINTS - C_PTS - D_PTS - 2):
+        j = i + 1 + C_PTS
+        k = j + 1 + D_PTS
         # vertex coincides with one of the other points => condition not met
         if [X[j], Y[j]] == [X[i], Y[i]] or [X[j], Y[j]] == [X[k], Y[k]]:
             return False
@@ -163,7 +175,7 @@ def condition9(X, Y, NUMPOINTS, params: Parameters):
         opposite_dist = dist_two_points(X[i], Y[i], X[k], Y[k])
         adjacent_dist = dist_two_points(X[j], Y[j], X[k], Y[k])
         angle = atan(opposite_dist / adjacent_dist)
-        if angle > (PI + params.EPSILON) or angle < (PI - params.EPSILON):
+        if angle > (PI + EPSILON) or angle < (PI - EPSILON):
             return True
     return False
 

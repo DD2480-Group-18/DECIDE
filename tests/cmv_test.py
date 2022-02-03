@@ -9,54 +9,43 @@ class CMVTest(unittest.TestCase):
         """
         Positive case to test if condition0 succeeds for the true case
         """
-        params = Parameters(0, 0, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-        self.assertTrue(condition0(params))
+        LENGTH1 = 1
+        self.assertTrue(condition0(LENGTH1))
 
     def test_0_edge(self):
         """
         Edge case to test if condition0 succeeds for the edge case LENGTH1=0
         """
-        params = Parameters(0, 0, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-        self.assertTrue(condition0(params))
+        LENGTH1 = 0
+        self.assertTrue(condition0(LENGTH1))
 
     def test_0_negative(self):
         """
         Negative case to test if condition0 succeeds for the false case
         """
-        params = Parameters(-1, 0, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-        self.assertFalse(condition0(params))
+        LENGTH1 = -1
+        self.assertFalse(condition0(LENGTH1))
 
     def test_1_positive(self):
         """
         Positive case to test if condition1 succeeds for the true case
         """
-        params = Parameters(0, 1, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-        self.assertTrue(condition1(params))
+        RADIUS1 = 1
+        self.assertTrue(condition1(RADIUS1))
 
     def test_1_edge(self):
         """
         Edge case to test if condition1 succeeds for the edge case RADIUS1=0
         """
-        params = Parameters(0, 0, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-        self.assertTrue(condition1(params))
+        RADIUS1 = 0
+        self.assertTrue(condition1(RADIUS1))
 
     def test_1_negative(self):
         """
         Negative case to test if condition1 succeeds for the false case
         """
-        params = Parameters(0, -1, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-        self.assertFalse(condition1(params))
+        RADIUS1 = -1
+        self.assertFalse(condition1(RADIUS1))
 
     def test_2_positive(self):
         """
@@ -156,7 +145,8 @@ class CMVTest(unittest.TestCase):
         points.
         """
 
-        params = Parameters(0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 0, 0, 0, 0, 0, 3, 3, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
         numpoints = 5
         x = [0, 10, 1, 2, 1]
         y = [0, 10, 1, 2, 1]
@@ -168,7 +158,8 @@ class CMVTest(unittest.TestCase):
         least one of the points lies a distance greater than DIST from the line joining the first and last of these N
         PTS points.
         """
-        params = Parameters(0, 0, 0, 0, 0, 0, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 0, 0, 0, 0, 0, 10, 4, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
         x = [1, 1, 2, 10, 10]
         y = [3, 1, 2, 10, 10]
         self.assertFalse(condition6(x, y, 5, params))
@@ -178,7 +169,8 @@ class CMVTest(unittest.TestCase):
         Positive case to test if There exists at least one set of two data points separated by exactly K PTS
         consecutive intervening points that are a distance greater than the length, LENGTH1, apart.
         """
-        params = Parameters(1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(1, 0, 0, 0, 0, 0, 0, 0, 1,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
         x = [0, 1, 2, 3]
         y = [0, 1, 2, 3]
         self.assertTrue(condition7(x, y, 4, params))
@@ -188,7 +180,8 @@ class CMVTest(unittest.TestCase):
         Negative case to test if There does NOT exist at least one set of two data points separated by exactly K PTS
         consecutive intervening points that are a distance greater than the length, LENGTH1, apart.
         """
-        params = Parameters(10, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(10, 0, 0, 0, 0, 0, 0, 0, 1,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
         x = [0, 1, 2, 3]
         y = [0, 1, 2, 3]
         self.assertFalse(condition7(x, y, 4, params))
@@ -197,7 +190,8 @@ class CMVTest(unittest.TestCase):
         """
         Negative case to test The condition is not met when NUMPOINTS < 3.
         """
-        params = Parameters(10, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(10, 0, 0, 0, 0, 0, 0, 0, 1,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
         x = [0, 1]
         y = [0, 1]
         self.assertFalse(condition7(x, y, 2, params))
@@ -208,7 +202,8 @@ class CMVTest(unittest.TestCase):
         PTS consecutive intervening points, respectively, that cannot be contained within or on a circle of radius
         RADIUS1.
         """
-        params = Parameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 1, 0, 0, 0, 0, 0, 0, 0,
+                            1, 2, 0, 0, 0, 0, 0, 0, 0, 0)
         x = [1, 1, 2, 10, 10]
         y = [3, 1, 2, 10, 10]
         self.assertTrue(condition8(x, y, 5, params))
@@ -219,7 +214,8 @@ class CMVTest(unittest.TestCase):
         PTS and B PTS consecutive intervening points, respectively, that cannot be contained within or on a circle of
         radius RADIUS1.
         """
-        params = Parameters(0, 100, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 100, 0, 0, 0, 0, 0, 0, 0,
+                            1, 2, 0, 0, 0, 0, 0, 0, 0, 0)
         x = [1, 1, 2, 10, 10]
         y = [3, 1, 2, 10, 10]
         self.assertFalse(condition8(x, y, 5, params))
@@ -228,7 +224,8 @@ class CMVTest(unittest.TestCase):
         """
         Negative case to test The condition is not met when NUMPOINTS < 5.
         """
-        params = Parameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 1, 0, 0, 0, 0, 0, 0, 0,
+                            1, 2, 0, 0, 0, 0, 0, 0, 0, 0)
         x = [1, 1, 2, 10]
         y = [3, 1, 2, 10]
         self.assertFalse(condition8(x, y, 4, params))
@@ -241,7 +238,8 @@ class CMVTest(unittest.TestCase):
         the first point or the last point (or both) coincide with the vertex, the angle is undefined and the LIC is
         not satisfied by those three points.
         """
-        params = Parameters(0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 0, 0.2, 0, 0, 0, 0, 0, 0,
+                            0, 0, 1, 2, 0, 0, 0, 0, 0, 0)
         x = [0, 1, 2, 10, 10, 100]
         y = [0, 1, 2, 10, 10, 100]
         self.assertTrue(condition9(x, y, 6, params))
@@ -254,7 +252,8 @@ class CMVTest(unittest.TestCase):
         angle. If either the first point or the last point (or both) coincide with the vertex, the angle is undefined
         and the LIC is not satisfied by those three points.
         """
-        params = Parameters(0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 0, 5, 0, 0, 0, 0, 0, 0,
+                            0, 0, 1, 2, 0, 0, 0, 0, 0, 0)
         x = [1, 1, 2, 10, 10, 2]
         y = [3, 1, 2, 10, 10, 2]
         self.assertFalse(condition9(x, y, 6, params))
@@ -263,7 +262,8 @@ class CMVTest(unittest.TestCase):
         """
         Negative case to test When NUMPOINTS < 5, the condition is not met.
         """
-        params = Parameters(0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 0, 1, 0, 0, 0, 0, 0, 0,
+                            0, 0, 1, 2, 0, 0, 0, 0, 0, 0)
         x = [1, 1, 2, 10, 10]
         y = [3, 1, 2, 10, 10]
         self.assertFalse(condition9(x, y, 5, params))
