@@ -1,4 +1,5 @@
 import unittest
+from custom_types import Parameters
 from cmv import *
 
 
@@ -191,30 +192,154 @@ class CMVTest(unittest.TestCase):
         y = [3, 1, 2, 10, 10]
         self.assertFalse(condition9(x, y, 5, params))
 
-    def test_10(self):
-        assert condition10(self.params) == True
+    def test_10_positive(self):
+        """
+        Positive test case to test that there exist 3 data points, separated by exactly
+        E_PTS, F_PTS consecutive points where the area of the triangle formed by the points
+        is larger than AREA1.
+        """
+        # Area should be 2
+        NUMPOINTS = 5
+        X = [0, 1, 0, 1, 2]
+        Y = [0, 0, 2, 2, 2]
+        E_PTS = 1
+        F_PTS = 1
+        AREA1 = 1
 
-    def test_11(self):
-        assert condition11(self.params) == True
+        self.assertTrue(condition10(X, Y, NUMPOINTS, E_PTS, F_PTS, AREA1))
 
-    def test_12(self):
-        assert condition12(self.params) == True
+    def test_10_negative(self):
+        """
+        Negative test case to test that condition10 fails if there does not exist 3 data points, separated
+        by exactly E_PTS, F_PTS consecutive points where the area of the triangle formed by the points
+        is larger than AREA1.
+        """
+        # Area should be 2
+        NUMPOINTS = 5
+        X = [0, 1, 0, 1, 2]
+        Y = [0, 0, 2, 2, 2]
+        E_PTS = 1
+        F_PTS = 1
+        AREA1 = 2.5
 
-    def test_13(self):
-        X = [0, 0, 1]
-        Y = [0, 1, 1]
-        NUMPOINTS = 3
-        params = Parameters(0, )
-        self.assertTrue(condition13(X, Y, NUMPOINTS, params.A_PTS, params.B_PTS, params.RADIUS1, params.RADIUS2))
+        self.assertFalse(condition10(X, Y, NUMPOINTS, E_PTS, F_PTS, AREA1))
+
+    def test_11_positive(self):
+        """
+        Positive test case to test that there exists 2 data points, separated
+        by G_PTS consecutive points where the first point is larger than the second point.
+        """
+        NUMPOINTS = 5
+        X = [3, 2, 0, 0, 2]
+        G_PTS = 2
+        self.assertTrue(condition11(X, NUMPOINTS, G_PTS))
+
+    def test_11_negative(self):
+        """
+        Negative test case to test that there does not exist 2 data points, separated
+        by G_PTS consecutive points where the first point is larger than the second point.
+        """
+        NUMPOINTS = 5
+        X = [0, 2, 0, 3, 2]
+        G_PTS = 2
+        self.assertFalse(condition11(X, NUMPOINTS, G_PTS))
+
+    def test_12_positive(self):
+        """
+        Positive test case to test that
+        -   There exists 2 points, separated by exactly K_PTS consecutive points that
+            create a line which is **longer** than LENGTH1.
+        -   There exists 2 points, separated by exactly K_PTS consecutive points that
+            create a line which is **shorter** than LENGTH2.
+        """
+        X = [1, 2, 3, 10, 4]
+        NUMPOINTS = 5
+        K_PTS = 1
+        LENGTH1 = 5
+        LENGTH2 = 10
+        self.assertTrue(condition12(X, Y, NUMPOINTS, K_PTS, LENGTH1, LENGTH2))
+
+    def test_12_negative(self):
+        """
+        Negative test case to test that
+        -   There is no 2 points, separated by exactly K_PTS consecutive points that
+            create a line which is longer than LENGTH1.
+        """
+        X = [1, 2, 3, 4, 5]
+        NUMPOINTS = 5
+        K_PTS = 1
+        LENGTH1 = 5
+        LENGTH2 = 10
+        self.assertFalse(condition12(X, Y, NUMPOINTS, K_PTS, LENGTH1, LENGTH2))
+
+    def test_13_positive(self):
+        """
+        Positive test case to test that
+        -   There exist 3 points, separated by exactly A_PTS, B_PTS consecutive points
+            that create a triangle which do not fit in a circle of radius RADIUS1.
+        -   There exist 3 points, separated by exactly A_PTS, B_PTS consecutive points
+            that create a triangle which fit in a circle of radius RADIUS2.
+        """
+        X = [0, 2, 0, 3, 2]
+        Y = [0, 1, 2, 1, 2]
+        NUMPOINTS = 5
+        A_PTS = 1
+        B_PTS = 1
+        RADIUS1 = 1
+        RADIUS2 = 3
+        self.assertTrue(condition13(X, Y, NUMPOINTS,
+                        A_PTS, B_PTS, RADIUS1, RADIUS2))
+
+    def test_13_negative(self):
+        """
+        Negative test case to test that
+        -   There does not exist 3 points, separated by exactly A_PTS, B_PTS consecutive points
+            that create a triangle that cannot fit in a circle of radius RADIUS1
+        """
+        X = [0, 2, 0, 3, 2]
+        Y = [0, 1, 2, 1, 5]
+        NUMPOINTS = 5
+        A_PTS = 1
+        B_PTS = 1
+        RADIUS1 = 3
+        RADIUS2 = 1
+        self.assertFalse(condition13(X, Y, NUMPOINTS,
+                                     A_PTS, B_PTS, RADIUS1, RADIUS2))
 
     def test_14_positive(self):
-        NUMPOINTS = 8
-        X = [10, 9, 8, 7, 8, 5, 6, 7]
-        Y = [10, 9, 8, 7, 8, 5, 6, 7]
-        E_PTS = 2
-        F_PTS = 2
-        AREA1 = 10
-        AREA2 = 15
+        """
+        Positive test case to test that
+        -   There exists 3 points, separated by exactly E_PTS, F_PTS consecutive points
+            that create a triangle with an area larger than AREA1.
+        -   There exists 3 points, separated by exactly E_PTS, F_PTS consecutive points
+            that create a triangle with an area smaller than AREA2.
+        """
+        # Area should be 2
+        NUMPOINTS = 5
+        X = [0, 1, 0, 1, 2]
+        Y = [0, 0, 2, 2, 2]
+        E_PTS = 1
+        F_PTS = 1
+        AREA1 = 1
+        AREA2 = 4
 
         self.assertTrue(condition14(X, Y, NUMPOINTS,
                                     E_PTS, F_PTS, AREA1, AREA2))
+
+    def test_14_negative(self):
+        """
+        Negative test case to test that
+        -   There does not exists 3 points, separated by exactly E_PTS, F_PTS consecutive points
+            that create a triangle with an area larger than AREA1.
+        """
+        # Area should be 2, but AREA1 and AREA2 are flipped
+        NUMPOINTS = 5
+        X = [0, 1, 0, 1, 2]
+        Y = [0, 0, 2, 2, 2]
+        E_PTS = 1
+        F_PTS = 1
+        AREA1 = 4
+        AREA2 = 1
+
+        self.assertFalse(condition14(X, Y, NUMPOINTS,
+                                     E_PTS, F_PTS, AREA1, AREA2))

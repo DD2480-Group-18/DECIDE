@@ -104,10 +104,8 @@ def condition6(X, Y, NUMPOINTS, params: Parameters):
 def condition7(X, Y, NUMPOINTS, params: Parameters):
     if NUMPOINTS < 3 or params.K_PTS > NUMPOINTS - 2:
         return False
-    for i in range(0, NUMPOINTS - params.K_PTS + 1):
+    for i in range(0, NUMPOINTS - params.K_PTS - 1):
         j = i + 1 + params.K_PTS
-        if j > i:
-            return False
         if dist_two_points(X[i], Y[i], X[j], Y[j]) > params.LENGTH1:
             return True
     return False
@@ -117,11 +115,11 @@ def condition8(X, Y, NUMPOINTS, params: Parameters):
     if NUMPOINTS < 5 or params.A_PTS + params.B_PTS > NUMPOINTS - 3 or params.A_PTS < 1 or params.B_PTS < 1:
         return False
     diameter1 = params.RADIUS1 * 2
-    for i in range(0, NUMPOINTS - params.A_PTS - params.B_PTS):
+    for i in range(0, NUMPOINTS - params.A_PTS - params.B_PTS - 2):
         # A = a-b, B = b-c, C = d-a
 
-        j = i + params.A_PTS
-        k = j + params.B_PTS
+        j = i + 1 + params.A_PTS
+        k = j + 1 + params.B_PTS
         a_x = X[i] - X[j]
         b_x = X[k] - X[j]
         c_x = X[i] - X[k]
@@ -155,9 +153,9 @@ def condition9(X, Y, NUMPOINTS, params: Parameters):
     """
     if NUMPOINTS < 5 or params.C_PTS + params.D_PTS > NUMPOINTS - 3 or params.C_PTS < 1 or params.D_PTS < 1:
         return False
-    for i in range(0, NUMPOINTS - params.C_PTS - params.D_PTS):
-        j = i + params.C_PTS
-        k = j + params.D_PTS
+    for i in range(0, NUMPOINTS - params.C_PTS - params.D_PTS - 2):
+        j = i + 1 + params.C_PTS
+        k = j + 1 + params.D_PTS
         # vertex coincides with one of the other points => condition not met
         if [X[j], Y[j]] == [X[i], Y[i]] or [X[j], Y[j]] == [X[k], Y[k]]:
             return False
