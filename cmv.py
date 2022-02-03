@@ -79,7 +79,7 @@ def condition4(params: Parameters):
     return False
 
 
-def condition5():
+def condition5(X, NUMPOINTS):
     for i in range(NUMPOINTS - 1):
         if X[i + 1] - X[i] < 0:
             return True
@@ -258,20 +258,20 @@ def condition13(params: Parameters):
     return greater_than_r1 and less_than_r2
 
 
-def condition14(params: Parameters):
-    if NUMPOINTS < 5 or params.AREA2 < 0:
+def condition14(X, Y, NUMPOINTS, E_PTS, F_PTS, AREA1, AREA2):
+    if NUMPOINTS < 5 or AREA2 < 0:
         return False
     greater_than_a1 = False
     less_than_a2 = False
-    for i in range(0, NUMPOINTS - params.E_PTS - params.F_PTS + 2):
-        j = i + 1 + params.E_PTS
-        k = j + 1 + params.F_PTS
+    for i in range(0, NUMPOINTS - E_PTS - F_PTS + 2):
+        j = i + 1 + E_PTS
+        k = j + 1 + F_PTS
         a_x = X[i] - X[j]
         b_x = X[k] - X[j]
         a_y = Y[i] - Y[j]
         b_y = Y[k] - Y[j]
-        if get_area(a_x, a_y, b_x, b_y) / 2 > params.AREA1:
+        if get_area(a_x, a_y, b_x, b_y) / 2 > AREA1:
             greater_than_a1 = True
-        if get_area(a_x, a_y, b_x, b_y) / 2 < params.AREA2:
+        if get_area(a_x, a_y, b_x, b_y) / 2 < AREA2:
             less_than_a2 = True
     return greater_than_a1 and less_than_a2

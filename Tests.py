@@ -12,20 +12,23 @@ class AllTest(unittest.TestCase):
 
     def __init__(self, methodName: str = ...):
         super().__init__(methodName)
-        self.params = Parameters(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        self.params = Parameters(
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
     def test_0_positive(self):
         """
         Positive case to test if condition0 succeeds for the true case
         """
-        params = Parameters(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 0, 0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
         self.assertTrue(condition0(params))
 
     def test_0_edge(self):
         """
         Edge case to test if condition0 succeeds for the edge case LENGTH1=0
         """
-        params = Parameters(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 0, 0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
         self.assertTrue(condition0(params))
 
@@ -33,7 +36,8 @@ class AllTest(unittest.TestCase):
         """
         Negative case to test if condition0 succeeds for the false case
         """
-        params = Parameters(-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(-1, 0, 0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
         self.assertFalse(condition0(params))
 
@@ -41,7 +45,8 @@ class AllTest(unittest.TestCase):
         """
         Positive case to test if condition1 succeeds for the true case
         """
-        params = Parameters(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 1, 0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
         self.assertTrue(condition1(params))
 
@@ -49,7 +54,8 @@ class AllTest(unittest.TestCase):
         """
         Edge case to test if condition1 succeeds for the edge case RADIUS1=0
         """
-        params = Parameters(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 0, 0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
         self.assertTrue(condition1(params))
 
@@ -57,7 +63,8 @@ class AllTest(unittest.TestCase):
         """
         Negative case to test if condition1 succeeds for the false case
         """
-        params = Parameters(0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, -1, 0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
         self.assertFalse(condition1(params))
 
@@ -72,7 +79,8 @@ class AllTest(unittest.TestCase):
         NUMPOINTS = 3
         X = [0.2, 0.1, 0.3]
         Y = [0.5, 0.55, 0.6]
-        params = Parameters(0, 0, 0.25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 0, 0.25, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
         self.assertTrue(condition2(params))
 
@@ -87,7 +95,8 @@ class AllTest(unittest.TestCase):
         NUMPOINTS = 4
         X = [0, 1, 2, 3]
         Y = [0, 0, 2, 2]
-        params = Parameters(0, 0, PI / 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 0, PI / 2, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
         self.assertFalse(condition2(params))
 
@@ -99,7 +108,8 @@ class AllTest(unittest.TestCase):
         NUMPOINTS = 6
         X = [0, 1, 2, 3, 4, 20]
         Y = [0, 0, 2, 2, 5, 110]
-        params = Parameters(0, 0, 0, 150, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 0, 0, 150, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
         self.assertTrue(condition3(params))
 
     def test_3_negative(self):
@@ -110,7 +120,8 @@ class AllTest(unittest.TestCase):
         NUMPOINTS = 6
         X = [100, 1, 2, 3, 4, 20]
         Y = [100, 5, 8, 2, 5, 110]
-        params = Parameters(0, 0, 0, 250, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 0, 0, 250, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
         self.assertFalse(condition3(params))
 
     def test_4_positive(self):
@@ -121,7 +132,8 @@ class AllTest(unittest.TestCase):
         NUMPOINTS = 5
         X = [100, 10, -1, -3, 4]
         Y = [0, -10, 10, -29, 5]
-        params = Parameters(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 0, 0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
         self.assertTrue(condition4(params))
 
     def test_4_negative(self):
@@ -132,7 +144,8 @@ class AllTest(unittest.TestCase):
         NUMPOINTS = 5
         X = [100, 1, 2, 3, 4]
         Y = [100, 5, 8, 2, 5]
-        params = Parameters(0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+        params = Parameters(0, 0, 0, 0, 3, 1, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
         self.assertFalse(condition4(params))
 
     def test_5_positive(self):
@@ -178,7 +191,7 @@ class AllTest(unittest.TestCase):
     def test_14(self):
         assert condition14(self.params) == True
 
-    def test_positive_intricate(self):
+    def test_pum_positive_intricate(self):
         """
         Test an intricate example case which should evaluate to the expected PUM.
         """
@@ -186,19 +199,19 @@ class AllTest(unittest.TestCase):
                False, False, False, False, False, False, False, False]
 
         lcm = [
-                  ["ANDD", "ANDD", "ORR", "ANDD", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED",
-                   "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED"],
+            ["ANDD", "ANDD", "ORR", "ANDD", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED",
+             "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED"],
 
-                  ["ANDD", "ANDD", "ORR", "ORR", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED",
-                   "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED"],
+            ["ANDD", "ANDD", "ORR", "ORR", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED",
+             "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED"],
 
-                  ["ORR", "ORR", "ANDD", "ANDD", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED",
-                   "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED"],
+            ["ORR", "ORR", "ANDD", "ANDD", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED",
+             "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED"],
 
-                  ["ANDD", "ORR", "ANDD", "ANDD", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED",
-                   "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED"]
-              ] + [["NOTUSED" for i in range(MATRIX_DIMENSION)]
-                   for j in range(11)]
+            ["ANDD", "ORR", "ANDD", "ANDD", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED",
+             "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED", "NOTUSED"]
+        ] + [["NOTUSED" for i in range(MATRIX_DIMENSION)]
+             for j in range(11)]
 
         expected_pum = [
             [False, False, True, False, True, True, True, True,
@@ -235,7 +248,7 @@ class AllTest(unittest.TestCase):
 
         self.assertListEqual(createPUM(lcm, cmv), expected_pum)
 
-    def fuv_test_all_true(self):
+    def test_fuv_all_true(self):
         """ Test that FUV is fully activated when PUV is fully activated
             and PUM is fully activated on every row.
 
@@ -250,7 +263,7 @@ class AllTest(unittest.TestCase):
         fuv = create_fuv(puv, pum)
         assert all(fuv)
 
-    def fuv_test_mixed(self):
+    def test_fuv_mixed(self):
         """ Test that indexes of FUV which either has a corresponding
             deactivated PUV or a corresponding fully activated PUM row.
 
@@ -264,41 +277,3 @@ class AllTest(unittest.TestCase):
                [True, False, True]]
         fuv = create_fuv(puv, pum)
         assert fuv == [True, True, False]
-
-    def run_all(self):
-        if __name__ == '__main__':
-            Thread(target=self.test_0_positive).start()
-            Thread(target=self.test_0_edge).start()
-            Thread(target=self.test_0_negative).start()
-            Thread(target=self.test_1_positive).start()
-            Thread(target=self.test_1_edge).start()
-            Thread(target=self.test_1_negative).start()
-            Thread(target=self.test_2_positive).start()
-            Thread(target=self.test_2_negative).start()
-            Thread(target=self.test_3_positive).start()
-            Thread(target=self.test_3_negative).start()
-            Thread(target=self.test_4_positive).start()
-            Thread(target=self.test_4_negative).start()
-            Thread(target=self.test_5_positive).start()
-            Thread(target=self.test_5_negative).start()
-            Thread(target=self.test_6).start()
-            Thread(target=self.test_7).start()
-            Thread(target=self.test_8).start()
-            Thread(target=self.test_9).start()
-            Thread(target=self.test_10).start()
-            Thread(target=self.test_11).start()
-            Thread(target=self.test_12).start()
-            Thread(target=self.test_13).start()
-            Thread(target=self.test_14).start()
-            Thread(target=self.test_positive_intricate).start()
-            Thread(target=self.fuv_test_all_true).start()
-            Thread(target=self.fuv_test_mixed).start()
-
-
-if __name__ == '__main__':
-    try:
-        run = AllTest()
-        run.run_all()
-        getattr(AllTest(), sys.argv[1])()
-    except KeyError:
-        raise KeyError('Invalid Function Name Passed in Argument! refer the code for valid Name.')
