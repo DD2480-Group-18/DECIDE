@@ -5,9 +5,6 @@ from globals import MATRIX_DIMENSION
 
 
 def createPUM(params: Parameters) -> List[List[bool]]:
-    assert(len(params.LCM) == MATRIX_DIMENSION)
-    assert(len(params.CMV) == MATRIX_DIMENSION)
-
     pum = [[None for i in range(MATRIX_DIMENSION)]
            for j in range(MATRIX_DIMENSION)]
     for i in range(0, MATRIX_DIMENSION):
@@ -23,49 +20,6 @@ def createPUM(params: Parameters) -> List[List[bool]]:
 
 
 class PUMTest(unittest.TestCase):
-
-    def test_faulty_LCM(self):
-        """
-        Test whether a faulty LCM (in dimensions) fails.
-        """
-        cmv = [False, True, True, False, False, False, False,
-               True, False, False, True, False, False, False, False]
-
-        # length MATRIX_DIMENSION - 1, should be MATRIX_DIMENSION
-        lcm = [["NOTUSED" for i in range(MATRIX_DIMENSION)]
-               for j in range(MATRIX_DIMENSION - 1)]
-
-        parameters = Parameters(cmv, lcm,  0, 0, 0, 0,
-                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-        did_raise_assertion_error = False
-        try:
-            createPUM(parameters)
-        except AssertionError:
-            did_raise_assertion_error = True
-
-        self.assertTrue(did_raise_assertion_error)
-
-    def test_faulty_CMV(self):
-        """
-        Test whether a faulty CMV (in dimensions) fails.
-        """
-        cmv = [False, True, True, False, False, False, False,
-               True, False, False, True, False, False, False]
-
-        lcm = [["NOTUSED" for i in range(MATRIX_DIMENSION)]
-               for j in range(MATRIX_DIMENSION)]
-
-        parameters = Parameters(cmv, lcm,  0, 0, 0, 0,
-                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-        did_raise_assertion_error = False
-        try:
-            createPUM(parameters)
-        except AssertionError:
-            did_raise_assertion_error = True
-
-        self.assertTrue(did_raise_assertion_error)
 
     def test_positive_intricate(self):
         """
