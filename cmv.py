@@ -208,16 +208,16 @@ def condition12(params: Parameters):
     return greater_than_l1 and less_than_l2
 
 
-def condition13(params: Parameters):
-    if NUMPOINTS < 5 or params.A_PTS + params.B_PTS > NUMPOINTS - 3 or params.A_PTS < 1 or params.B_PTS < 1:
+def condition13(X, Y, NUMPOINTS, A_PTS, B_PTS, RADIUS1, RADIUS2):
+    if NUMPOINTS < 5 or A_PTS + B_PTS > NUMPOINTS - 3 or A_PTS < 1 or B_PTS < 1:
         return False
-    diameter1 = params.RADIUS1 * 2
-    diameter2 = params.RADIUS2 * 2
+    diameter1 = RADIUS1 * 2
+    diameter2 = RADIUS2 * 2
     greater_than_r1 = False
     less_than_r2 = False
-    for i in range(0, NUMPOINTS - params.A_PTS - params.B_PTS + 2):
-        j = i + 1 + params.A_PTS
-        k = j + 1 + params.B_PTS
+    for i in range(0, NUMPOINTS - A_PTS - B_PTS + 2):
+        j = i + 1 + A_PTS
+        k = j + 1 + B_PTS
 
         # Triangle vectors
         a_x = X[i] - X[j]
@@ -251,15 +251,15 @@ def condition13(params: Parameters):
             s = (a_dist+b_dist+c_dist) / 2
             r = (a_dist*b_dist*c_dist) / \
                 (4 * sqrt(s * (s - a_dist) * (s - b_dist) * (s - c_dist)))
-            if r > params.RADIUS1:
+            if r > RADIUS1:
                 greater_than_r1 = True
-            if r > params.RADIUS2:
+            if r > RADIUS2:
                 less_than_r2 = True
     return greater_than_r1 and less_than_r2
 
 
 def condition14(X, Y, NUMPOINTS, E_PTS, F_PTS, AREA1, AREA2):
-    if NUMPOINTS < 5 or AREA2 < 0:
+    if NUMPOINTS < 5 or E_PTS + F_PTS > NUMPOINTS - 3 or AREA2 < 0:
         return False
     greater_than_a1 = False
     less_than_a2 = False
