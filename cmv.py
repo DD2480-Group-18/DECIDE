@@ -1,7 +1,8 @@
 from typing import List
+import unittest
 
 from globals import NUMPOINTS, PI, X, Y
-from types import Parameters
+from custom_types import Parameters
 
 from math import atan
 from helpers import get_angle, get_area, line_two_points, dist_point_line, dist_two_points, dist
@@ -11,15 +12,15 @@ def create_cmv(params: Parameters) -> List[bool]:
     return [condition0(params), condition1(params), condition2(params), condition3(params), condition4(params), condition5(params), condition6(params), condition7(params), condition8(params), condition9(params), condition10(params), condition11(params), condition12(params), condition13(params), condition14(params)]
 
 
-def condition0(params):
+def condition0(params: Parameters):
     return 0 <= params.LENGTH1
 
 
-def condition1(params):
+def condition1(params: Parameters):
     return 0 <= params.RADIUS1
 
 
-def condition2(params):
+def condition2(params: Parameters):
     if 0 > params.EPSILON or params.EPSILON >= PI:
         return False
     for i in range(0, NUMPOINTS - 3):
@@ -109,7 +110,7 @@ def condition8(params: Parameters):
         return False
     DIAMETER1 = params.RADIUS1 * 2
     for i in range(0, NUMPOINTS - params.A_PTS - params.B_PTS - 2):
-        # A = a-b, B = b-c, C = d-a 
+        # A = a-b, B = b-c, C = d-a
 
         j = i + 1 + params.A_PTS
         k = j + 1 + params.B_PTS
@@ -133,7 +134,8 @@ def condition8(params: Parameters):
                 return True
         else:
             s = (a_dist+b_dist+c_dist) / 2
-            r = (a_dist*b_dist*c_dist) / (4 * sqrt(s * (s - a_dist) * (s - b_dist) * (s - c_dist)))
+            r = (a_dist*b_dist*c_dist) / \
+                (4 * sqrt(s * (s - a_dist) * (s - b_dist) * (s - c_dist)))
             if (r > params.RADIUS1):
                 return True
     return False
@@ -240,7 +242,8 @@ def condition13(params: Parameters):
         # Use length of sides to determine radius of circumference circle
         else:
             s = (a_dist+b_dist+c_dist) / 2
-            r = (a_dist*b_dist*c_dist) / (4 * sqrt(s * (s - a_dist) * (s - b_dist) * (s - c_dist)))
+            r = (a_dist*b_dist*c_dist) / \
+                (4 * sqrt(s * (s - a_dist) * (s - b_dist) * (s - c_dist)))
             if (r > params.RADIUS1):
                 greater_than_r1 = True
             if (r > params.RADIUS2):
@@ -265,3 +268,54 @@ def condition14(params: Parameters):
         if get_area(a_x, a_y, b_x, b_y) < params.AREA2:
             less_than_a2 = True
     return greater_than_a1 and less_than_a2
+
+
+class LICTest(unittest.TestCase):
+    def setUp(self):
+        self.params = Parameters(
+            None, None, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+    def test_0(self):
+        assert condition0(self.params) == True
+
+    def test_1(self):
+        assert condition1(self.params) == True
+
+    def test_2(self):
+        assert condition2(self.params) == True
+
+    def test_3(self):
+        assert condition3(self.params) == True
+
+    def test_4(self):
+        assert condition4(self.params) == True
+
+    def test_5(self):
+        assert condition5(self.params) == True
+
+    def test_6(self):
+        assert condition6(self.params) == True
+
+    def test_7(self):
+        assert condition7(self.params) == True
+
+    def test_8(self):
+        assert condition8(self.params) == True
+
+    def test_9(self):
+        assert condition9(self.params) == True
+
+    def test_10(self):
+        assert condition10(self.params) == True
+
+    def test_11(self):
+        assert condition11(self.params) == True
+
+    def test_12(self):
+        assert condition12(self.params) == True
+
+    def test_13(self):
+        assert condition13(self.params) == True
+
+    def test_14(self):
+        assert condition14(self.params) == True

@@ -1,4 +1,4 @@
-from types import Parameters
+from custom_types import Parameters
 from cmv import createCMV
 
 
