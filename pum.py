@@ -1,7 +1,7 @@
 from custom_types import BooleanOperator, MATRIX_DIMENSION
 
 
-def createPUM(lcm, cmv):
+def create_pum(lcm, cmv):
     pum = [[None for _ in range(MATRIX_DIMENSION)]
            for _ in range(MATRIX_DIMENSION)]
     for i in range(0, MATRIX_DIMENSION):
