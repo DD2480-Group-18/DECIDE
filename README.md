@@ -46,15 +46,15 @@ python3 -m unittest pum.py
 
 __Adam Henriksson__ 
 
-- LCIs [0-3, 7-14] + testing, refactoring
+- LICs [0-3, 7-14] + testing, refactoring
 
 __Zino Kader__
 
-- LCIs 7-14, PUM + testing, refactoring, documentation
+- LICs 7-14, PUM + testing, refactoring, documentation
 
 __Hasan Kalzi__ 
 
-- LCIs 4-6
+- LICs [0,1] [4-6], Testing [0-9] + Functions + refactoring
 
 ### 1.5 Essence Standard - way of working
 
