@@ -352,6 +352,7 @@ class CMVTest(unittest.TestCase):
             create a line which is **shorter** than LENGTH2.
         """
         X = [1, 2, 3, 10, 4]
+        Y = [0, 0, 0, 0, 0]
         NUMPOINTS = 5
         K_PTS = 1
         LENGTH1 = 5
@@ -365,6 +366,7 @@ class CMVTest(unittest.TestCase):
             create a line which is longer than LENGTH1.
         """
         X = [1, 2, 3, 4, 5]
+        Y = [0, 0, 0, 0, 0]
         NUMPOINTS = 5
         K_PTS = 1
         LENGTH1 = 5
