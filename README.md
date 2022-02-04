@@ -94,7 +94,6 @@ __Hasan Kalzi__
 
 - LICs [0,1] [4-6], Testing [0-9] + Functions + refactoring
 
-
 #### 1.4.1 Extra credit
 
 We believe we have done something creative that we are proud of. The program can be run from the CLI with
