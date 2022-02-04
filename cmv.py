@@ -1,30 +1,40 @@
 from typing import List
-from custom_types import PI, Parameters, X, Y, NUMPOINTS
+from custom_types import PI, Parameters
 from math import atan, sqrt
 from helpers import *
 
 
 def create_cmv(params: Parameters) -> List[bool]:
-    return [condition0(X, Y, NUMPOINTS, params.LENGTH1),
-            condition1(X, Y, NUMPOINTS, params.RADIUS1),
-            condition2(X, Y, NUMPOINTS, params.EPSILON),
-            condition3(X, Y, NUMPOINTS, params.AREA1),
-            condition4(X, Y, NUMPOINTS, params.Q_PTS, params.QUADS),
-            condition5(X, NUMPOINTS),
-            condition6(X, Y, NUMPOINTS, params.K_PTS, params.LENGTH1),
-            condition7(X, Y, NUMPOINTS, params.K_PTS, params.LENGTH1),
-            condition8(X, Y, NUMPOINTS, params.A_PTS,
-                       params.B_PTS, params.RADIUS1),
-            condition9(X, Y, NUMPOINTS, params.C_PTS,
-                       params.D_PTS, params.EPSILON),
-            condition10(X, Y, NUMPOINTS, params.E_PTS,
-                        params.F_PTS, params.AREA1),
-            condition11(X, Y, NUMPOINTS),
-            condition12(X, Y, NUMPOINTS, params.K_PTS,
-                        params.LENGTH1, params.LENGTH2),
-            condition13(X, Y, NUMPOINTS, params.A_PTS, params.B_PTS,
-                        params.RADIUS1, params.RADIUS2),
-            condition14(X, Y, NUMPOINTS, params.E_PTS, params.F_PTS, params.AREA1, params.AREA2)]
+    return [
+        condition0(params.X, params.Y,
+                   params.NUMPOINTS, params.LENGTH1),
+        condition1(params.X, params.Y,
+                   params.NUMPOINTS, params.RADIUS1),
+        condition2(params.X, params.Y,
+                   params.NUMPOINTS, params.EPSILON),
+        condition3(params.X, params.Y,
+                   params.NUMPOINTS, params.AREA1),
+        condition4(params.X, params.Y,
+                   params.NUMPOINTS, params.Q_PTS, params.QUADS),
+        condition5(X, NUMPOINTS),
+        condition6(params.X, params.Y, params.NUMPOINTS,
+                   params.K_PTS, params.LENGTH1),
+        condition7(params.X, params.Y, params.NUMPOINTS,
+                   params.K_PTS, params.LENGTH1),
+        condition8(params.X, params.Y, params.NUMPOINTS,
+                   params.A_PTS, params.B_PTS, params.RADIUS1),
+        condition9(params.X, params.Y, params.NUMPOINTS,
+                   params.C_PTS, params.D_PTS, params.EPSILON),
+        condition10(params.X, params.Y, params.NUMPOINTS,
+                    params.E_PTS, params.F_PTS, params.AREA1),
+        condition11(params.X, params.Y, params.NUMPOINTS),
+        condition12(params.X, params.Y, params.NUMPOINTS,
+                    params.K_PTS, params.LENGTH1, params.LENGTH2),
+        condition13(params.X, params.Y, params.NUMPOINTS, params.A_PTS,
+                    params.B_PTS, params.RADIUS1, params.RADIUS2),
+        condition14(params.X, params.Y, params.NUMPOINTS,
+                    params.E_PTS, params.F_PTS, params.AREA1, params.AREA2)
+    ]
 
 
 def condition0(X, Y, NUMPOINTS, LENGTH1):
@@ -139,8 +149,6 @@ def condition8(X, Y, NUMPOINTS, A_PTS, B_PTS, RADIUS1):
         return False
     diameter1 = RADIUS1 * 2
     for i in range(0, NUMPOINTS - A_PTS - B_PTS - 2):
-        # A = a-b, B = b-c, C = d-a
-
         j = i + 1 + A_PTS
         k = j + 1 + B_PTS
         a_x = X[i] - X[j]
@@ -154,6 +162,7 @@ def condition8(X, Y, NUMPOINTS, A_PTS, B_PTS, RADIUS1):
         b_dist = dist(b_x, b_y)
         c_dist = dist(c_x, c_y)
 
+        # a_angle = a<->b ; b_angle = b<->c ; c_angle = c<->a
         a_angle = get_angle(a_x, a_y, b_x, b_y)
         b_angle = get_angle(b_x, b_y, c_x, c_y)
         c_angle = get_angle(c_x, c_y, a_x, a_y)
