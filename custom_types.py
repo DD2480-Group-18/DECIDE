@@ -12,8 +12,12 @@ class BooleanOperator(Enum):
 
 
 class Parameters:
-    def __init__(self, LENGTH1, RADIUS1, EPSILON, AREA1, Q_PTS, QUADS, DIST, N_PTS, K_PTS, A_PTS, B_PTS, C_PTS, D_PTS,
-                 E_PTS, F_PTS, G_PTS, LENGTH2, RADIUS2, AREA2):
+    def __init__(
+        self, X, Y, NUMPOINTS, LENGTH1, RADIUS1, EPSILON, AREA1, Q_PTS, QUADS, DIST, N_PTS, K_PTS, A_PTS, B_PTS, C_PTS, D_PTS, E_PTS, F_PTS, G_PTS, LENGTH2, RADIUS2, AREA2
+    ):
+        self.X: List[float] = X
+        self.Y: List[float] = Y
+        self.NUMPOINTS: int = NUMPOINTS
         self.LENGTH1: float = LENGTH1
         self.RADIUS1: float = RADIUS1
         self.EPSILON: float = EPSILON
