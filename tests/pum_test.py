@@ -1,6 +1,6 @@
 import unittest
 from custom_types import MATRIX_DIMENSION
-from pum import createPUM
+from pum import create_pum
 
 
 class PUMTest(unittest.TestCase):
@@ -59,4 +59,4 @@ class PUMTest(unittest.TestCase):
              True, True, True, True, True, True, True]
         ]
 
-        self.assertListEqual(createPUM(lcm, cmv), expected_pum)
+        self.assertListEqual(create_pum(lcm, cmv), expected_pum)
