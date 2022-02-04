@@ -9,27 +9,30 @@ class CMVTest(unittest.TestCase):
         Positive case to test if condition0 succeeds for the true case
         """
         NUMPOINTS = 6
+        LENGTH1 = 1
         X = [100, 1, 2, 3, 4, 20]
         Y = [100, 5, 8, 2, 5, 110]
-        self.assertTrue(condition0(X, Y, NUMPOINTS, 1))
+        self.assertTrue(condition0(X, Y, NUMPOINTS, LENGTH1))
 
     def test_0_edge(self):
         """
         Edge case to test if condition0 succeeds for the edge case LENGTH1=0
         """
         NUMPOINTS = 6
+        LENGTH1 = 0
         X = [0, 0, 0, 0, 0, 0]
         Y = [0, 0, 0, 0, 0, 0]
-        self.assertTrue(condition0(X, Y,NUMPOINTS, 0))
+        self.assertTrue(condition0(X, Y, NUMPOINTS, 0))
 
     def test_0_negative(self):
         """
         Negative case to test if condition0 succeeds for the false case
         """
-        params = Parameters(-1, 0, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-        self.assertFalse(condition0(params))
+        NUMPOINTS = 6
+        LENGTH1 = 1000
+        X = [100, 1, 2, 3, 4, 20]
+        Y = [100, 5, 8, 2, 5, 110]
+        self.assertFalse(condition0(X, Y, NUMPOINTS, LENGTH1))
 
     def test_1_positive(self):
         """
@@ -38,7 +41,7 @@ class CMVTest(unittest.TestCase):
         NUMPOINTS = 6
         X = [0, 5, 10, 15, 20, 30]
         Y = [0, 5, 10, 15, 20, 30]
-        self.assertTrue(condition0(X, Y,NUMPOINTS, 1))
+        self.assertTrue(condition0(X, Y, NUMPOINTS, 1))
 
     def test_1_edge(self):
         """
@@ -47,7 +50,7 @@ class CMVTest(unittest.TestCase):
         NUMPOINTS = 6
         X = [0, 5, 10, 15, 20, 25]
         Y = [5, 0, 10, 15, 20, 25]
-        self.assertTrue(condition0(X, Y,NUMPOINTS, 5))
+        self.assertTrue(condition0(X, Y, NUMPOINTS, 5))
 
     def test_1_negative(self):
         """
@@ -56,7 +59,7 @@ class CMVTest(unittest.TestCase):
         NUMPOINTS = 6
         X = [0, 5, 10, 15, 20, 25]
         Y = [5, 0, 10, 15, 20, 25]
-        self.assertFalse(condition0(X, Y,NUMPOINTS, 50))
+        self.assertFalse(condition0(X, Y, NUMPOINTS, 50))
 
     def test_2_positive(self):
         """
