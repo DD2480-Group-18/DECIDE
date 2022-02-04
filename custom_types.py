@@ -9,12 +9,6 @@ PI: float = 3.14159265358979
 MATRIX_DIMENSION: int = 15
 
 
-class Boolean:
-    def __init__(self):
-        self.true = 1
-        self.false = 0
-
-
 class BooleanOperator(Enum):
     AND = "ANDD"
     OR = "ORR"
