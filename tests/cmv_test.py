@@ -283,8 +283,6 @@ class CMVTest(unittest.TestCase):
         """
         Negative case to test When NUMPOINTS < 5, the condition is not met.
         """
-        params = Parameters(0, 0, 1, 0, 0, 0, 0, 0, 0,
-                            0, 0, 1, 2, 0, 0, 0, 0, 0, 0)
         X = [1, 1, 2, 10]
         Y = [3, 1, 2, 10]
         NUMPOINTS = 4
