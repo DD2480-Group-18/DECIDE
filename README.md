@@ -25,12 +25,42 @@ The FUV is a 15-element boolean vector which indicates if the launch button shou
 
 ### 1.3 How to use it
 
-The program in its current state exists as a proof of concept for a university assignment.
-All major functionality is implemented and tested, but the program can currently only be tested, not run directly. Thus, the program can not be run without modification if custom input is desired.
+The project has no external dependencies, all you need is Python3 (tested and working with Python 3.8.9).
 
-The project has no dependencies, all you need is Python3 (tested and working with Python 3.8.9).
+#### 1.3.1 How to run the DECIDE program from the CLI
 
-#### 1.3.1 How to run tests
+To run the DECIDE program from the CLI, all parameters must be provided. An example of a case that will **NOT** launch is presented below:
+
+```
+python3 main.py --num-points=5 --dist=0.5 --quads=2 --length1=1 --length2=2 --radius1=5 
+--radius2=10 --area1=5 --area2=15 --epsilon=0.25 --q-pts=2 --n-pts=2 --k-pts=2 --a-pts=2 
+--b-pts=2 --c-pts=3 --d-pts=3 --e-pts=2 --f-pts=2 --g-pts=3 
+--points="[[1,2], [2,3], [3,4], [5,6], [7,8]]" 
+--puv="[False, True, False, False, False, False, False, False, False, False, True, False, False, True, True]" 
+--lcm="[['ANDD', 'ORR', 'ORR', 'ANDD', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED'], ['ANDD', 'ANDD', 'ORR', 'ORR', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED'], ['ORR', 'ORR', 'ANDD', 'ANDD', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED'], ['ANDD', 'ORR', 'ANDD', 'ANDD', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED'], ['NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED'], ['NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED'], ['NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED'], ['NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED'], ['NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED'], ['NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED'], ['NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED'], ['NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED'], ['NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED'], ['NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED'], ['NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED', 'NOTUSED']]"
+```
+
+Running above will yield the output:
+
+```
+====================== 👨‍⚖️ DECIDE 👨‍⚖️ ======================
+
+DECIDE: interceptor 🔒 LOCKED 🔒, do NOT launch!
+
+==========================================================
+```
+
+If the program decides that a launch should happen, the output instead looks like:
+
+```
+====================== 👨‍⚖️ DECIDE 👨‍⚖️ ======================
+
+DECIDE: interceptor 🚀 UNLOCKED 🚀, launch APPROVED!
+
+==========================================================
+```
+
+#### 1.3.2 How to run tests
 
 To run all tests, from the outermost directory run:
 
@@ -63,6 +93,15 @@ __Zino Kader__
 __Hasan Kalzi__ 
 
 - LICs [0,1] [4-6], Testing [0-9] + Functions + refactoring
+
+#### 1.4.1 Extra credit
+
+We believe we have done something creative that we are proud of. The program can be run from the CLI with
+every single parameter being adjustable. This is documented in [#1.3.1](#how-to-run-the-decide-program-from-the-CLI).
+
+An example run looks like this:
+
+![DECIDE CLI run](/img/output_example.png)
 
 ### 1.5 Essence Standard - way of working
 
