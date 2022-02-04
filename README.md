@@ -28,33 +28,41 @@ The FUV is a 15-element boolean vector which indicates if the launch button shou
 The program in its current state exists as a proof of concept for a university assignment.
 All major functionality is implemented and tested, but the program can currently only be tested, not run directly. Thus, the program can not be run without modification if custom input is desired.
 
+The project has no dependencies, all you need is Python3 (tested and working with Python 3.8.9).
+
 #### 1.3.1 How to run tests
 
 To run all tests, from the outermost directory run:
 
 ```
-python3 -m unittest
+python3 -m unittest discover -s tests -p "*_test.py"
 ```
 
 If you desire to run a specific test file, run the same command but specify which file to test. For instance, to test `pum.py`:
 
 ```
-python3 -m unittest pum.py
+python3 -m unittest tests/cmv_test.py
+```
+
+If you desire to specifically run a _single test_ in a test file, for instance `test_10_negative` in the test class `CMVTest` in the file `cmv_test.py`, specify that like so:
+
+```
+python3 -m unittest tests/cmv_test.py -k CMVTest.test_10_negative
 ```
 
 ### 1.4 Statement of contributions
 
 __Adam Henriksson__ 
 
-- LCIs [0-3, 7-14] + testing, refactoring
+- LICs [0-3, 7-14] + testing, refactoring
 
 __Zino Kader__
 
-- LCIs 7-14, PUM + testing, refactoring, documentation
+- LICs [7-14] + Testing [10-14], PUM + testing, refactoring, documentation
 
 __Hasan Kalzi__ 
 
-- LCIs 4-6
+- LICs [0,1] [4-6], Testing [0-9] + Functions + refactoring
 
 ### 1.5 Essence Standard - way of working
 
